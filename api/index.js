@@ -12,10 +12,7 @@ import cors from "cors";
 
 dotenv.config();
 
-app.use(cors({
-  origin: process.env.CLIENT_URL, // Allow frontend URL
-  credentials: true, // Allow cookies
-}));
+
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to mongoDB!!');
@@ -29,7 +26,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Allow frontend URL
+  credentials: true, // Allow cookies
+}));
 
 // app.get('/test', (req, res) => {
 //   res.send('Hello World!')

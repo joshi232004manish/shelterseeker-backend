@@ -5,13 +5,17 @@ import userRouter from "../api/routes/user.route.js"
 import userAuth from "../api/routes/auth.route.js"
 import userListing from "../api/routes/listing.route.js"
 import cookieParser from "cookie-parser"
+import cors from "cors";
 
 
 
 
 dotenv.config();
 
-
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Allow frontend URL
+  credentials: true, // Allow cookies
+}));
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to mongoDB!!');
@@ -22,7 +26,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 })
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
 
